@@ -45,3 +45,4 @@ class Move(Action):
         if y >= self.board.height : y = 0
 
         self.board.playerPosition = (x, y)
+        self.board.process()

@@ -12,7 +12,6 @@ class Game():
     def __init__(self, settings):
         self.isRunning = True
         self.fps = getSetting(settings, "fps", 30)
-        self.speed = getSetting(settings, "speed", 1)
         self.board = Board(settings)
 
         width = self.board.width * self.board.cellSize
@@ -35,7 +34,6 @@ class Game():
                 for action in self.actions:
                     if action.handle(event) : action.process()
 
-            self.board.process()
             self.board.draw(self.screen)
             pygame.display.flip()
 
