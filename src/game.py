@@ -4,6 +4,7 @@ import pygame
 from src.board import Board
 from src.common import getSetting
 from src.actions.move import Move
+from src.actions.quit import Quit
 
 
 
@@ -22,7 +23,8 @@ class Game():
         self.clock = pygame.time.Clock()
 
         self.actions = []
-        self.actions.append(Move(self.board))
+        self.actions.append(Move(self))
+        self.actions.append(Quit(self))
 
     def run(self):
         action = None
@@ -30,10 +32,6 @@ class Game():
             self.clock.tick(self.fps)
 
             for event in pygame.event.get():
-                if event.type == pygame.QUIT : self.isRunning = False
-                if event.type == pygame.KEYUP :
-                    if event.key == pygame.K_ESCAPE : self.isRunning = False
-
                 for action in self.actions:
                     if action.handle(event) : action.process()
 

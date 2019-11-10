@@ -7,8 +7,8 @@ from src.common import Direction
 
 
 class Move(Action):
-    def __init__(self, board):
-        super().__init__(board)
+    def __init__(self, game):
+        super().__init__(game)
         self.direction = None
 
     def process(self):
