@@ -52,5 +52,5 @@ class Move(Action):
             self.game.loadNextLevel()
             return
 
-        self.board.playerPosition = (x, y)
+        self.board.setPlayerPosition((x, y))
         self.board.process()
