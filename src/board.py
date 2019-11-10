@@ -36,3 +36,6 @@ class Board():
                 if ItemType.PlayerStart == ItemType(item):
                     return (row, column)
         return (0, 0)
+
+    def itemType(self, row, column):
+        return ItemType(self.level.data[column][row])
