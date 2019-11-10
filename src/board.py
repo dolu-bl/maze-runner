@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from src.common import getSetting, Direction, ItemType, drawItem, drawPlayerItem
-from src.level01 import Level01
+from src.common import getSetting, ItemType, drawItem, drawPlayerItem
 
 
 
 class Board():
     def __init__(self, settings):
-        self.level = Level01()
-        self.width = self.level.width()
-        self.height = self.level.height()
         self.cellSize = getSetting(settings, "cellSize", 10)
         self.isDead = False
-        self.playerPosition = self.startPosition()
+        self.level = None
 
     def draw(self, screen):
         screen.fill((0, 0, 0))
@@ -39,3 +35,9 @@ class Board():
 
     def itemType(self, row, column):
         return ItemType(self.level.data[column][row])
+
+    def loadLevel(self, level):
+        self.level = level
+        self.width = self.level.width()
+        self.height = self.level.height()
+        self.playerPosition = self.startPosition()

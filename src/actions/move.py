@@ -48,5 +48,9 @@ class Move(Action):
         if ItemType.Wall == itemType:
             return
 
+        if ItemType.Exit == itemType:
+            self.game.loadNextLevel()
+            return
+
         self.board.playerPosition = (x, y)
         self.board.process()
