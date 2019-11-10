@@ -82,11 +82,3 @@ def drawAppleItem(screen, x, y, cellSize):
         Colors.Apple.value,
         (x + cellSize2, y + cellSize2),
         cellSize2)
-
-def drawPlayerItem(screen, x, y, cellSize):
-    cellSize2 = int(cellSize / 2)
-    pygame.draw.circle(
-        screen,
-        Colors.Player.value,
-        (x + cellSize2, y + cellSize2),
-        cellSize2)
