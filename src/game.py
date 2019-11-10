@@ -12,17 +12,16 @@ from src.levels.level02 import Level02
 
 class Game():
     def __init__(self, settings):
-        self.isRunning = True
-        self.fps = getSetting(settings, "fps", 30)
-        self.board = Board(settings)
-        self.loadNextLevel()
-
-        width = self.board.width * self.board.cellSize
-        height = self.board.height * self.board.cellSize
-
         pygame.init()
+        width = getSetting(settings, "width", 800)
+        height = getSetting(settings, "height", 600)
         self.screen = pygame.display.set_mode((width, height))
         self.clock = pygame.time.Clock()
+
+        self.isRunning = True
+        self.fps = getSetting(settings, "fps", 30)
+        self.board = Board(settings, width, height)
+        self.loadNextLevel()
 
         self.actions = []
         self.actions.append(Move(self))
