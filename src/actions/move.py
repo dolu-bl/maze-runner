@@ -2,7 +2,7 @@
 
 import pygame
 from src.actions.action import Action
-from src.common import Direction
+from src.common import Direction, ItemType
 
 
 
@@ -43,6 +43,14 @@ class Move(Action):
         if y < 0 : y = self.board.height - 1;
         if x >= self.board.width : x = 0
         if y >= self.board.height : y = 0
+
+        itemType = self.board.itemType(x, y)
+        if ItemType.Wall == itemType:
+            return
+
+        if ItemType.Exit == itemType:
+            self.game.loadNextLevel()
+            return
 
         self.board.playerPosition = (x, y)
         self.board.process()
