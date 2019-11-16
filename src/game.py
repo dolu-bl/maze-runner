@@ -13,9 +13,13 @@ from src.levels.level02 import Level02
 class Game():
     def __init__(self, settings):
         pygame.init()
-        width = getSetting(settings, "width", 800)
+        width = getSetting(settings, "width", 600)
         height = getSetting(settings, "height", 600)
-        self.screen = pygame.display.set_mode((width, height))
+
+        flags = 0
+        if getSetting(settings, "isFullScreen", False):
+            flags = pygame.FULLSCREEN
+        self.screen = pygame.display.set_mode((width, height), flags)
         self.clock = pygame.time.Clock()
 
         self.isRunning = True
