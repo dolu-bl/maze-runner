@@ -15,16 +15,16 @@ class Move(Action):
         self.windowHeight = surface.get_height()
 
     def process(self):
-        x = self.board.playerPosition[0]
-        y = self.board.playerPosition[1]
+        col = self.board.player.col
+        row = self.board.player.row
         if self.direction == Direction.Up:
-            self.tryMove(x, y - 1)
+            self.tryMove(col, row - 1)
         elif self.direction == Direction.Right:
-            self.tryMove(x + 1, y)
+            self.tryMove(col + 1, row)
         elif self.direction == Direction.Down:
-            self.tryMove(x, y + 1)
+            self.tryMove(col, row + 1)
         elif self.direction == Direction.Left:
-            self.tryMove(x - 1, y)
+            self.tryMove(col - 1, row)
 
     def handle(self, event):
         if event.type == pygame.KEYUP:
@@ -57,13 +57,13 @@ class Move(Action):
 
         return False
 
-    def tryMove(self, x, y):
-        if x < 0 : x = self.board.width - 1;
-        if y < 0 : y = self.board.height - 1;
-        if x >= self.board.width : x = 0
-        if y >= self.board.height : y = 0
+    def tryMove(self, col, row):
+        if col < 0 : col = self.board.width - 1;
+        if row < 0 : row = self.board.height - 1;
+        if col >= self.board.width : col = 0
+        if row >= self.board.height : row = 0
 
-        itemType = self.board.itemType(x, y)
+        itemType = self.board.itemType(col, row)
         if ItemType.Wall == itemType:
             return
 
@@ -71,5 +71,5 @@ class Move(Action):
             self.game.loadNextLevel()
             return
 
-        self.board.setPlayerPosition((x, y))
+        self.board.setPlayerPosition(col, row)
         self.board.process()

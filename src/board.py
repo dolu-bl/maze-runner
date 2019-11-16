@@ -1,28 +1,29 @@
 # -*- coding: utf-8 -*-
 
-from src.common import getSetting, ItemType, drawItem, drawPlayerItem
+from src.player import Player
+from src.common import getSetting, ItemType, drawItem
 
 
 
 class Board():
     def __init__(self, settings, width, height):
         self.cellSize = getSetting(settings, "cellSize", 10)
-        self.isDead = False
         self.level = None
         self.centerX = int(width / 2 - self.cellSize / 2)
         self.centerY = int(height / 2 - self.cellSize / 2)
         self.offsetX = 0
         self.offsetY = 0
+        self.player = Player()
 
     def draw(self, screen):
         screen.fill((0, 0, 0))
         for row in range(0, self.width):
-            for column in range(0, self.height):
+            for col in range(0, self.height):
                 x = row * self.cellSize + self.offsetX
-                y = column * self.cellSize + self.offsetY
-                item = ItemType(self.level.data[column][row])
+                y = col * self.cellSize + self.offsetY
+                item = ItemType(self.level.data[col][row])
                 drawItem(item, screen, x, y, self.cellSize)
-        drawPlayerItem(screen, self.centerX, self.centerY, self.cellSize)
+        self.player.draw(screen, self.centerX, self.centerY, self.cellSize)
 
     def process(self):
         pass
@@ -42,9 +43,11 @@ class Board():
         self.level = level
         self.width = self.level.width()
         self.height = self.level.height()
-        self.setPlayerPosition(self.startPosition())
+        startPosition = self.startPosition()
+        self.setPlayerPosition(startPosition[0], startPosition[1])
 
-    def setPlayerPosition(self, position):
-        self.offsetX = self.centerX - position[0] * self.cellSize
-        self.offsetY = self.centerY - position[1] * self.cellSize
-        self.playerPosition = position
+    def setPlayerPosition(self, col, row):
+        self.offsetX = self.centerX - col * self.cellSize
+        self.offsetY = self.centerY - row * self.cellSize
+        self.player.col = col
+        self.player.row = row
